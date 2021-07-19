@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.c0bra.animation.mapper.AnimeWatchingMapper">
+  <resultMap id="BaseResultMap" type="com.c0bra.animation.model.AnimeWatching">
+    <id column="anime_id" jdbcType="INTEGER" property="animeId" />
+    <result column="watched" jdbcType="INTEGER" property="watched" />
+    <result column="ps" jdbcType="VARCHAR" property="ps" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    anime_id, watched, ps
+  </sql>
+  <select id="selectByExample" parameterType="com.c0bra.animation.model.AnimeWatchingExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from anime_watching
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from anime_watching
+    where anime_id = #{animeId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from anime_watching
+    where anime_id = #{animeId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.c0bra.animation.model.AnimeWatchingExample">
+    delete from anime_watching
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.c0bra.animation.model.AnimeWatching">
+    insert into anime_watching (anime_id, watched, ps
+      )
+    values (#{animeId,jdbcType=INTEGER}, #{watched,jdbcType=INTEGER}, #{ps,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.c0bra.animation.model.AnimeWatching">
+    insert into anime_watching
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="animeId != null">
+        anime_id,
+      </if>
+      <if test="watched != null">
+        watched,
+      </if>
+      <if test="ps != null">
+        ps,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="animeId != null">
+        #{animeId,jdbcType=INTEGER},
+      </if>
+      <if test="watched != null">
+        #{watched,jdbcType=INTEGER},
+      </if>
+      <if test="ps != null">
+        #{ps,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.c0bra.animation.model.AnimeWatchingExample" resultType="java.lang.Long">
+    select count(*) from anime_watching
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update anime_watching
+    <set>
+      <if test="record.animeId != null">
+        anime_id = #{record.animeId,jdbcType=INTEGER},
+      </if>
+      <if test="record.watched != null">
+        watched = #{record.watched,jdbcType=INTEGER},
+      </if>
+      <if test="record.ps != null">
+        ps = #{record.ps,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update anime_watching
+    set anime_id = #{record.animeId,jdbcType=INTEGER},
+      watched = #{record.watched,jdbcType=INTEGER},
+      ps = #{record.ps,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.c0bra.animation.model.AnimeWatching">
+    update anime_watching
+    <set>
+      <if test="watched != null">
+        watched = #{watched,jdbcType=INTEGER},
+      </if>
+      <if test="ps != null">
+        ps = #{ps,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where anime_id = #{animeId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.c0bra.animation.model.AnimeWatching">
+    update anime_watching
+    set watched = #{watched,jdbcType=INTEGER},
+      ps = #{ps,jdbcType=VARCHAR}
+    where anime_id = #{animeId,jdbcType=INTEGER}
+  </update>
+</mapper>

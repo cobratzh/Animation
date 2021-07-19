@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.c0bra.animation.mapper.RoleCvMapper">
+  <resultMap id="BaseResultMap" type="com.c0bra.animation.model.RoleCv">
+    <id column="anime_id" jdbcType="INTEGER" property="animeId" />
+    <id column="cv_id" jdbcType="INTEGER" property="cvId" />
+    <result column="role" jdbcType="VARCHAR" property="role" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    anime_id, cv_id, role
+  </sql>
+  <select id="selectByExample" parameterType="com.c0bra.animation.model.RoleCvExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from role_cv
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="map" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from role_cv
+    where anime_id = #{animeId,jdbcType=INTEGER}
+      and cv_id = #{cvId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="map">
+    delete from role_cv
+    where anime_id = #{animeId,jdbcType=INTEGER}
+      and cv_id = #{cvId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.c0bra.animation.model.RoleCvExample">
+    delete from role_cv
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.c0bra.animation.model.RoleCv">
+    insert into role_cv (anime_id, cv_id, role
+      )
+    values (#{animeId,jdbcType=INTEGER}, #{cvId,jdbcType=INTEGER}, #{role,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.c0bra.animation.model.RoleCv">
+    insert into role_cv
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="animeId != null">
+        anime_id,
+      </if>
+      <if test="cvId != null">
+        cv_id,
+      </if>
+      <if test="role != null">
+        role,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="animeId != null">
+        #{animeId,jdbcType=INTEGER},
+      </if>
+      <if test="cvId != null">
+        #{cvId,jdbcType=INTEGER},
+      </if>
+      <if test="role != null">
+        #{role,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.c0bra.animation.model.RoleCvExample" resultType="java.lang.Long">
+    select count(*) from role_cv
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update role_cv
+    <set>
+      <if test="record.animeId != null">
+        anime_id = #{record.animeId,jdbcType=INTEGER},
+      </if>
+      <if test="record.cvId != null">
+        cv_id = #{record.cvId,jdbcType=INTEGER},
+      </if>
+      <if test="record.role != null">
+        role = #{record.role,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update role_cv
+    set anime_id = #{record.animeId,jdbcType=INTEGER},
+      cv_id = #{record.cvId,jdbcType=INTEGER},
+      role = #{record.role,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.c0bra.animation.model.RoleCv">
+    update role_cv
+    <set>
+      <if test="role != null">
+        role = #{role,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where anime_id = #{animeId,jdbcType=INTEGER}
+      and cv_id = #{cvId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.c0bra.animation.model.RoleCv">
+    update role_cv
+    set role = #{role,jdbcType=VARCHAR}
+    where anime_id = #{animeId,jdbcType=INTEGER}
+      and cv_id = #{cvId,jdbcType=INTEGER}
+  </update>
+</mapper>
