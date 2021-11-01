@@ -10,7 +10,7 @@ public interface AnimeService {
 
     Anime get(Integer id);
 
-    List<Anime> select(List<Integer> ids);
+    List<Anime> select(String keyword, int pageNum, int pageSize);
 
     int delete(List<Integer> ids);
 

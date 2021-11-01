@@ -3,7 +3,7 @@
 <mapper namespace="com.c0bra.animation.mapper.CvMapper">
   <resultMap id="BaseResultMap" type="com.c0bra.animation.model.Cv">
     <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="cv_name" jdbcType="VARCHAR" property="cvName" />
     <result column="company" jdbcType="VARCHAR" property="company" />
   </resultMap>
   <sql id="Example_Where_Clause">
@@ -65,7 +65,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, name, company
+    id, cv_name, company
   </sql>
   <select id="selectByExample" parameterType="com.c0bra.animation.model.CvExample" resultMap="BaseResultMap">
     select
@@ -101,8 +101,8 @@
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into cv (name, company)
-    values (#{name,jdbcType=VARCHAR}, #{company,jdbcType=VARCHAR})
+    insert into cv (cv_name, company)
+    values (#{cvName,jdbcType=VARCHAR}, #{company,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.c0bra.animation.model.Cv">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
@@ -110,16 +110,16 @@
     </selectKey>
     insert into cv
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="name != null">
-        name,
+      <if test="cvName != null">
+        cv_name,
       </if>
       <if test="company != null">
         company,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="name != null">
-        #{name,jdbcType=VARCHAR},
+      <if test="cvName != null">
+        #{cvName,jdbcType=VARCHAR},
       </if>
       <if test="company != null">
         #{company,jdbcType=VARCHAR},
@@ -138,8 +138,8 @@
       <if test="record.id != null">
         id = #{record.id,jdbcType=INTEGER},
       </if>
-      <if test="record.name != null">
-        name = #{record.name,jdbcType=VARCHAR},
+      <if test="record.cvName != null">
+        cv_name = #{record.cvName,jdbcType=VARCHAR},
       </if>
       <if test="record.company != null">
         company = #{record.company,jdbcType=VARCHAR},
@@ -152,7 +152,7 @@
   <update id="updateByExample" parameterType="map">
     update cv
     set id = #{record.id,jdbcType=INTEGER},
-      name = #{record.name,jdbcType=VARCHAR},
+      cv_name = #{record.cvName,jdbcType=VARCHAR},
       company = #{record.company,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -161,8 +161,8 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.c0bra.animation.model.Cv">
     update cv
     <set>
-      <if test="name != null">
-        name = #{name,jdbcType=VARCHAR},
+      <if test="cvName != null">
+        cv_name = #{cvName,jdbcType=VARCHAR},
       </if>
       <if test="company != null">
         company = #{company,jdbcType=VARCHAR},
@@ -172,7 +172,7 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.c0bra.animation.model.Cv">
     update cv
-    set name = #{name,jdbcType=VARCHAR},
+    set cv_name = #{cvName,jdbcType=VARCHAR},
       company = #{company,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>

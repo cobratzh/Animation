@@ -5,6 +5,8 @@ import com.c0bra.animation.mapper.AnimeMapper;
 import com.c0bra.animation.model.Anime;
 import com.c0bra.animation.model.AnimeExample;
 import com.c0bra.animation.service.AnimeService;
+import com.github.pagehelper.PageHelper;
+import io.netty.util.internal.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,9 +29,14 @@ public class AnimeServiceImpl implements AnimeService {
 
 
     @Override
-    public List<Anime> select(List<Integer> ids) {
+    public List<Anime> select(String keyword, int pageNum, int pageSize) {
+        PageHelper.startPage(pageNum, pageSize);
         AnimeExample example = new AnimeExample();
-        example.createCriteria().andIdIn(ids);
+        example.setOrderByClause("sort desc");
+        AnimeExample.Criteria criteria = example.createCriteria();
+        if(!StringUtil.isNullOrEmpty(keyword)){
+            criteria.andAnimeNameLike("%" + keyword + "%");
+        }
         return animeMapper.selectByExample(example);
     }
 

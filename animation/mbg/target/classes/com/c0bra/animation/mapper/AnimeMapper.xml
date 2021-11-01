@@ -3,9 +3,9 @@
 <mapper namespace="com.c0bra.animation.mapper.AnimeMapper">
   <resultMap id="BaseResultMap" type="com.c0bra.animation.model.Anime">
     <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="Anime_name" jdbcType="VARCHAR" property="animeName" />
     <result column="production_id" jdbcType="INTEGER" property="productionId" />
-    <result column="release" jdbcType="TIMESTAMP" property="release" />
+    <result column="release_time" jdbcType="TIMESTAMP" property="releaseTime" />
     <result column="update_interval" jdbcType="INTEGER" property="updateInterval" />
     <result column="episode" jdbcType="INTEGER" property="episode" />
   </resultMap>
@@ -68,7 +68,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, name, production_id, release, update_interval, episode
+    id, Anime_name, production_id, release_time, update_interval, episode
   </sql>
   <select id="selectByExample" parameterType="com.c0bra.animation.model.AnimeExample" resultMap="BaseResultMap">
     select
@@ -104,9 +104,9 @@
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into anime (name, production_id, release, 
+    insert into anime (Anime_name, production_id, release_time, 
       update_interval, episode)
-    values (#{name,jdbcType=VARCHAR}, #{productionId,jdbcType=INTEGER}, #{release,jdbcType=TIMESTAMP}, 
+    values (#{animeName,jdbcType=VARCHAR}, #{productionId,jdbcType=INTEGER}, #{releaseTime,jdbcType=TIMESTAMP}, 
       #{updateInterval,jdbcType=INTEGER}, #{episode,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.c0bra.animation.model.Anime">
@@ -115,14 +115,14 @@
     </selectKey>
     insert into anime
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="name != null">
-        name,
+      <if test="animeName != null">
+        Anime_name,
       </if>
       <if test="productionId != null">
         production_id,
       </if>
-      <if test="release != null">
-        release,
+      <if test="releaseTime != null">
+        release_time,
       </if>
       <if test="updateInterval != null">
         update_interval,
@@ -132,14 +132,14 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="name != null">
-        #{name,jdbcType=VARCHAR},
+      <if test="animeName != null">
+        #{animeName,jdbcType=VARCHAR},
       </if>
       <if test="productionId != null">
         #{productionId,jdbcType=INTEGER},
       </if>
-      <if test="release != null">
-        #{release,jdbcType=TIMESTAMP},
+      <if test="releaseTime != null">
+        #{releaseTime,jdbcType=TIMESTAMP},
       </if>
       <if test="updateInterval != null">
         #{updateInterval,jdbcType=INTEGER},
@@ -161,14 +161,14 @@
       <if test="record.id != null">
         id = #{record.id,jdbcType=INTEGER},
       </if>
-      <if test="record.name != null">
-        name = #{record.name,jdbcType=VARCHAR},
+      <if test="record.animeName != null">
+        Anime_name = #{record.animeName,jdbcType=VARCHAR},
       </if>
       <if test="record.productionId != null">
         production_id = #{record.productionId,jdbcType=INTEGER},
       </if>
-      <if test="record.release != null">
-        release = #{record.release,jdbcType=TIMESTAMP},
+      <if test="record.releaseTime != null">
+        release_time = #{record.releaseTime,jdbcType=TIMESTAMP},
       </if>
       <if test="record.updateInterval != null">
         update_interval = #{record.updateInterval,jdbcType=INTEGER},
@@ -184,9 +184,9 @@
   <update id="updateByExample" parameterType="map">
     update anime
     set id = #{record.id,jdbcType=INTEGER},
-      name = #{record.name,jdbcType=VARCHAR},
+      Anime_name = #{record.animeName,jdbcType=VARCHAR},
       production_id = #{record.productionId,jdbcType=INTEGER},
-      release = #{record.release,jdbcType=TIMESTAMP},
+      release_time = #{record.releaseTime,jdbcType=TIMESTAMP},
       update_interval = #{record.updateInterval,jdbcType=INTEGER},
       episode = #{record.episode,jdbcType=INTEGER}
     <if test="_parameter != null">
@@ -196,14 +196,14 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.c0bra.animation.model.Anime">
     update anime
     <set>
-      <if test="name != null">
-        name = #{name,jdbcType=VARCHAR},
+      <if test="animeName != null">
+        Anime_name = #{animeName,jdbcType=VARCHAR},
       </if>
       <if test="productionId != null">
         production_id = #{productionId,jdbcType=INTEGER},
       </if>
-      <if test="release != null">
-        release = #{release,jdbcType=TIMESTAMP},
+      <if test="releaseTime != null">
+        release_time = #{releaseTime,jdbcType=TIMESTAMP},
       </if>
       <if test="updateInterval != null">
         update_interval = #{updateInterval,jdbcType=INTEGER},
@@ -216,9 +216,9 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.c0bra.animation.model.Anime">
     update anime
-    set name = #{name,jdbcType=VARCHAR},
+    set Anime_name = #{animeName,jdbcType=VARCHAR},
       production_id = #{productionId,jdbcType=INTEGER},
-      release = #{release,jdbcType=TIMESTAMP},
+      release_time = #{releaseTime,jdbcType=TIMESTAMP},
       update_interval = #{updateInterval,jdbcType=INTEGER},
       episode = #{episode,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
